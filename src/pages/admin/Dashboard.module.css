@@ -108,7 +108,7 @@
 
 .twoCol {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -224,47 +224,6 @@
   color: var(--warn);
 }
 
-.catRow {
-  padding: 14px 20px;
-  border-bottom: 1px solid #f8f8f8;
-}
-
-.catRow:last-child {
-  border-bottom: none;
-}
-
-.catTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 7px;
-}
-
-.catName {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gray-2);
-}
-
-.catCount {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--black);
-}
-
-.barBg {
-  height: 5px;
-  background: var(--gray-6);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.barFill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.6s ease;
-}
-
 .topPostRow {
   display: flex;
   align-items: center;
@@ -323,49 +282,3 @@
   flex-shrink: 0;
 }
 
-.quickGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 16px;
-}
-
-.quickBtn {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  text-decoration: none;
-  color: inherit;
-}
-
-.quickBtn:hover {
-  border-color: var(--primary-mid);
-  background: var(--primary-light);
-}
-
-.quickIcon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.quickLabel {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gray-2);
-}
-
-.quickBtn:hover .quickLabel {
-  color: var(--primary);
-}
