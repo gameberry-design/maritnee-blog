@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import Editor from '../../components/admin/Editor.jsx'
+import { IconExternalLink } from '../../components/icons/Icons.jsx'
 import { CURRENT_USER } from '../../lib/mockData.js'
 import styles from './PostForm.module.css'
 
@@ -382,6 +383,18 @@ export default function PostFormPage({ mode = 'create', initial }) {
                       onChange={(e) => onSlugChange(e.target.value)}
                       placeholder="url-slug"
                     />
+                    {isEdit && (
+                      <a
+                        className={styles.slugOpenBtn}
+                        href={data.slug ? `/post/${data.slug}` : '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-disabled={!data.slug}
+                        title="새 탭에서 공개 페이지 열기"
+                      >
+                        <IconExternalLink />
+                      </a>
+                    )}
                   </div>
                   {!errors.slug && data.slug && (
                     <div className={styles.fieldHint} style={{ color: 'var(--success)' }}>

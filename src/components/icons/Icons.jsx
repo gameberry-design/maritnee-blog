@@ -91,6 +91,16 @@ export function IconEvent({ size = 16 }) {
   )
 }
 
+export function IconExternalLink({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 2h5v5" />
+      <path d="M14 2L7 9" />
+      <path d="M12 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4" />
+    </svg>
+  )
+}
+
 export function IconImage({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 18 14" fill="none">
