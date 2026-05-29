@@ -234,7 +234,7 @@ export default function PostFormPage({ mode = 'create', initial }) {
             비공개
           </button>
         )}
-        <button className={`${styles.btn} ${styles.btnSuccess}`} onClick={publish}>
+        <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={publish}>
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M2 10l4 4 8-8" />
           </svg>

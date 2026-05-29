@@ -90,13 +90,13 @@
   color: var(--black);
 }
 
-.btnSuccess {
-  background: var(--success);
+.btnPrimary {
+  background: var(--primary);
   color: var(--white);
 }
 
-.btnSuccess:hover {
-  background: #0e8a42;
+.btnPrimary:hover {
+  background: var(--primary-dark);
 }
 
 .modeTabs {
