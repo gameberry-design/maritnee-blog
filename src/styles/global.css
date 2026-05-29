@@ -73,7 +73,7 @@ input[type='checkbox'] {
   transition: border-color 0.12s, background 0.12s;
 }
 
-input[type='checkbox']:hover:not(:disabled) {
+input[type='checkbox']:hover:not(:disabled):not(:checked):not(:indeterminate) {
   border-color: var(--primary-mid);
 }
 
