@@ -8,6 +8,18 @@ export const CATEGORY_GROUPS = {
   guide: { title: '자료실', cats: ['자료실'] },
 }
 
+// 카테고리 → 사이드바 그룹 매핑. AdminLayout의 sub-nav 활성 판정과
+// edit/:id 링크에 ?group= 쿼리를 붙일 때 공통 사용.
+export const GROUP_OF_CAT = {
+  Growth: 'insight',
+  CRM: 'insight',
+  AppsFlyer: 'solution',
+  Amplitude: 'solution',
+  Braze: 'solution',
+  이벤트: 'event',
+  자료실: 'guide',
+}
+
 export const CATEGORY_COLOR = {
   Growth: 'growth',
   CRM: 'crm',

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { POSTS, CATEGORY_COLOR } from '../../lib/mockData.js'
+import { POSTS, CATEGORY_COLOR, GROUP_OF_CAT } from '../../lib/mockData.js'
 import { IconPlus, IconImage } from '../../components/icons/Icons.jsx'
 import styles from './Posts.module.css'
 
@@ -335,7 +335,7 @@ export default function Posts() {
                       </td>
                       <td className={styles.postTitleCell}>
                         <Link
-                          to={`/admin/posts/edit/${p.id}`}
+                          to={`/admin/posts/edit/${p.id}?group=${GROUP_OF_CAT[p.cat] || ''}`}
                           style={{ display: 'block' }}
                         >
                           <div className={styles.postTitle}>

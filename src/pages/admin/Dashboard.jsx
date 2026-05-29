@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { POSTS, AUTHORS } from '../../lib/mockData.js'
+import { POSTS, AUTHORS, GROUP_OF_CAT } from '../../lib/mockData.js'
 import {
   IconPosts,
   IconClock,
@@ -106,7 +106,7 @@ export default function Dashboard() {
               return (
                 <Link
                   key={p.id}
-                  to={`/admin/posts/edit/${p.id}`}
+                  to={`/admin/posts/edit/${p.id}?group=${GROUP_OF_CAT[p.cat] || ''}`}
                   className={styles.postRow}
                 >
                   <div

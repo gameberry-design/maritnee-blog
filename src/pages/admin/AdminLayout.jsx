@@ -6,18 +6,14 @@ import {
   IconAuthors,
   IconLogout,
 } from '../../components/icons/Icons.jsx'
-import { POSTS, AUTHORS, CURRENT_USER, CATEGORY_GROUPS } from '../../lib/mockData.js'
+import {
+  POSTS,
+  AUTHORS,
+  CURRENT_USER,
+  CATEGORY_GROUPS,
+  GROUP_OF_CAT,
+} from '../../lib/mockData.js'
 import styles from './AdminLayout.module.css'
-
-const GROUP_OF_CAT = {
-  Growth: 'insight',
-  CRM: 'insight',
-  AppsFlyer: 'solution',
-  Amplitude: 'solution',
-  Braze: 'solution',
-  이벤트: 'event',
-  자료실: 'guide',
-}
 
 export default function AdminLayout() {
   const { pathname } = useLocation()
@@ -32,10 +28,15 @@ export default function AdminLayout() {
     return c
   }, [])
 
-  // /admin/posts 위에 있을 때만 그룹 하위 메뉴 active 판정.
-  // 쿼리스트링이 없으면 기본값 'insight'.
-  const activeGroup =
-    pathname === '/admin/posts' ? searchParams.get('group') || 'insight' : null
+  // 사이드바 하위 메뉴 active 판정:
+  //  - /admin/posts 목록: ?group= 또는 기본 'insight'
+  //  - /admin/posts/edit/:id 수정: 링크에서 넘긴 ?group= 사용
+  //  - 그 외(write/dashboard/authors): 비활성
+  const activeGroup = (() => {
+    if (pathname === '/admin/posts') return searchParams.get('group') || 'insight'
+    if (pathname.startsWith('/admin/posts/edit/')) return searchParams.get('group')
+    return null
+  })()
 
   const navItemClass = ({ isActive }) =>
     `${styles.navItem} ${isActive ? styles.active : ''}`
