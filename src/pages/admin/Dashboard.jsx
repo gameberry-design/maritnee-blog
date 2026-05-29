@@ -104,7 +104,11 @@ export default function Dashboard() {
             {recent.map((p, i) => {
               const status = STATUS_LABEL[p.status]
               return (
-                <div key={p.id} className={styles.postRow}>
+                <Link
+                  key={p.id}
+                  to={`/admin/posts/edit/${p.id}`}
+                  className={styles.postRow}
+                >
                   <div
                     className={styles.postThumb}
                     style={{ background: THUMB_COLORS[i % THUMB_COLORS.length] }}
@@ -122,7 +126,7 @@ export default function Dashboard() {
                   >
                     {status.text}
                   </span>
-                </div>
+                </Link>
               )
             })}
           </div>
@@ -133,7 +137,11 @@ export default function Dashboard() {
               <span className={styles.sectionMeta}>누적 기준</span>
             </div>
             {topPosts.map((p, i) => (
-              <div key={p.id} className={styles.topPostRow}>
+              <Link
+                key={p.id}
+                to={`/admin/posts/edit/${p.id}`}
+                className={styles.topPostRow}
+              >
                 <span
                   className={`${styles.rank} ${i < 3 ? styles.rankTop : ''}`}
                 >
@@ -146,7 +154,7 @@ export default function Dashboard() {
                 <span className={styles.topPostViews}>
                   {p.views.toLocaleString()}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
