@@ -592,10 +592,7 @@
 }
 
 .catCheckRow input {
-  accent-color: var(--primary);
   cursor: pointer;
-  width: 15px;
-  height: 15px;
 }
 
 .toggleRows {

@@ -54,3 +54,53 @@ button {
 #root {
   min-height: 100vh;
 }
+
+/* ── 커스텀 체크박스 (네이티브 비활성) ── */
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--gray-5);
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+input[type='checkbox']:hover:not(:disabled) {
+  border-color: var(--primary-mid);
+}
+
+input[type='checkbox']:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 8 6.5 11 13 5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+}
+
+input[type='checkbox']:indeterminate {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round'%3E%3Cline x1='4' y1='8' x2='12' y2='8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+}
+
+input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--primary-mid);
+  outline-offset: 1px;
+}
+
+input[type='checkbox']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

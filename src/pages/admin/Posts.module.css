@@ -255,9 +255,6 @@
 .tdCheck input,
 .thCheck input {
   cursor: pointer;
-  accent-color: var(--primary);
-  width: 16px;
-  height: 16px;
 }
 
 .tdCenter {
