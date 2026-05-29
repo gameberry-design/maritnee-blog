@@ -95,13 +95,20 @@ export default function Posts() {
   const [status, setStatus] = useState(initialStatus)
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [posts, setPosts] = useState(POSTS)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setGroup(searchParams.get('group') || 'insight')
     setCat('_all')
     setStatus(searchParams.get('status') || 'all')
     setSelectedIds(new Set())
+    setPage(1)
   }, [searchParams])
+
+  // 필터/검색 변경 시 1페이지로 리셋
+  useEffect(() => {
+    setPage(1)
+  }, [cat, status, search])
 
   const tabs = GROUP_TABS[group] ?? []
   const allowedCats = GROUP_CATS[group] ?? []
@@ -117,7 +124,11 @@ export default function Posts() {
     })
   }, [posts, allowedCats, cat, status, search])
 
-  const display = filtered.slice(0, 15)
+  const PAGE_SIZE = 15
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const safePage = Math.min(page, totalPages)
+  const start = (safePage - 1) * PAGE_SIZE
+  const display = filtered.slice(start, start + PAGE_SIZE)
   const allChecked = display.length > 0 && display.every((p) => selectedIds.has(p.id))
 
   function toggleAll() {
@@ -247,7 +258,9 @@ export default function Posts() {
             </div>
           )}
           <span className={styles.pageInfo}>
-            1–{Math.min(15, filtered.length)} / {filtered.length}개
+            {filtered.length === 0
+              ? '0개'
+              : `${start + 1}–${start + display.length} / ${filtered.length}개`}
           </span>
         </div>
 
@@ -332,14 +345,32 @@ export default function Posts() {
               )}
             </tbody>
           </table>
-          {filtered.length > 0 && (
+          {totalPages > 1 && (
             <div className={styles.pagination}>
               <div className={styles.pageButtons}>
-                <button className={styles.pageBtn} disabled>←</button>
-                <button className={`${styles.pageBtn} ${styles.pageBtnActive}`}>1</button>
-                <button className={styles.pageBtn}>2</button>
-                <span className={styles.ellipsis}>…</span>
-                <button className={styles.pageBtn}>→</button>
+                <button
+                  className={styles.pageBtn}
+                  disabled={safePage === 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                >
+                  ←
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                  <button
+                    key={n}
+                    className={`${styles.pageBtn} ${n === safePage ? styles.pageBtnActive : ''}`}
+                    onClick={() => setPage(n)}
+                  >
+                    {n}
+                  </button>
+                ))}
+                <button
+                  className={styles.pageBtn}
+                  disabled={safePage === totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                >
+                  →
+                </button>
               </div>
             </div>
           )}
