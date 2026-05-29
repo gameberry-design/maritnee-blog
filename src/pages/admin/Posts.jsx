@@ -211,7 +211,10 @@ export default function Posts() {
           </svg>
           Export
         </button>
-        <Link to="/admin/posts/write" className={`${styles.btn} ${styles.btnPrimary}`}>
+        <Link
+          to={`/admin/posts/write?group=${group}`}
+          className={`${styles.btn} ${styles.btnPrimary}`}
+        >
           <IconPlus size={13} />새 게시글
         </Link>
       </div>

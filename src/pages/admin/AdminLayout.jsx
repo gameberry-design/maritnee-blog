@@ -30,11 +30,11 @@ export default function AdminLayout() {
 
   // 사이드바 하위 메뉴 active 판정:
   //  - /admin/posts 목록: ?group= 또는 기본 'insight'
-  //  - /admin/posts/edit/:id 수정: 링크에서 넘긴 ?group= 사용
-  //  - 그 외(write/dashboard/authors): 비활성
+  //  - /admin/posts/* 하위 경로(write/edit): 링크에서 넘긴 ?group= 사용
+  //  - 그 외(dashboard/authors): 비활성
   const activeGroup = (() => {
     if (pathname === '/admin/posts') return searchParams.get('group') || 'insight'
-    if (pathname.startsWith('/admin/posts/edit/')) return searchParams.get('group')
+    if (pathname.startsWith('/admin/posts/')) return searchParams.get('group')
     return null
   })()
 
