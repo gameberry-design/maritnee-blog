@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { POSTS, CATEGORY_COLOR } from '../../lib/mockData.js'
@@ -129,6 +129,26 @@ export default function Posts() {
   const safePage = Math.min(page, totalPages)
   const start = (safePage - 1) * PAGE_SIZE
   const display = filtered.slice(start, start + PAGE_SIZE)
+
+  // 페이지 변경 시 콘텐츠 영역(스크롤 가능한 조상) 최상단으로 스크롤.
+  // 첫 마운트엔 동작하지 않도록 플래그 처리.
+  const contentRef = useRef(null)
+  const isFirstMount = useRef(true)
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false
+      return
+    }
+    let el = contentRef.current
+    while (el) {
+      const overflow = window.getComputedStyle(el).overflowY
+      if (overflow === 'auto' || overflow === 'scroll') {
+        el.scrollTo({ top: 0, behavior: 'smooth' })
+        return
+      }
+      el = el.parentElement
+    }
+  }, [safePage])
   const allChecked = display.length > 0 && display.every((p) => selectedIds.has(p.id))
 
   function toggleAll() {
@@ -196,7 +216,7 @@ export default function Posts() {
         </Link>
       </div>
 
-      <div className={styles.content}>
+      <div className={styles.content} ref={contentRef}>
         <div className={styles.catTabs}>
           {tabs.map((t) => (
             <button
