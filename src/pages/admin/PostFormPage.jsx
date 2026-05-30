@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import Editor from '../../components/admin/Editor.jsx'
+import Select from '../../components/admin/Select.jsx'
 import { IconExternalLink } from '../../components/icons/Icons.jsx'
 import { CURRENT_USER } from '../../lib/mockData.js'
 import styles from './PostForm.module.css'
@@ -349,16 +350,16 @@ export default function PostFormPage({ mode = 'create', initial }) {
                     카드 배지 <span className={styles.required}>*</span>
                   </div>
                   <div className={styles.fieldNote}>썸네일에 표시 (1개)</div>
-                  <select
-                    className={styles.fieldSelect}
+                  <Select
                     value={data.mainCat}
-                    onChange={(e) => update({ mainCat: e.target.value })}
-                  >
-                    <option value="">선택하세요</option>
-                    {data.cats.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
+                    onChange={(v) => update({ mainCat: v })}
+                    options={data.cats.map((c) => ({ value: c, label: c }))}
+                    placeholder={
+                      data.cats.length === 0
+                        ? '노출 메뉴 선택 시 자동 설정'
+                        : '선택하세요'
+                    }
+                  />
                   {errors.mainCat && (
                     <div className={styles.fieldError}>{errors.mainCat}</div>
                   )}

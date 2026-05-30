@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { AUTHORS, TEAM_COLOR } from '../../lib/mockData.js'
 import { IconPlus } from '../../components/icons/Icons.jsx'
+import Select from '../../components/admin/Select.jsx'
 import styles from './Authors.module.css'
 
 const AVATAR_BG = ['#dbeafe', '#dcfce7', '#fef9c3', '#fce7f3', '#ede9fe', '#ffedd5', '#e0f2fe', '#d1fae5']
@@ -129,18 +130,15 @@ export default function Authors() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <select
-            className={styles.filterSelect}
+          <Select
             value={teamFilter}
-            onChange={(e) => setTeamFilter(e.target.value)}
-          >
-            <option value="all">전체 팀</option>
-            {TEAMS.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
+            onChange={setTeamFilter}
+            options={[
+              { value: 'all', label: '전체 팀' },
+              ...TEAMS.map((t) => ({ value: t, label: t })),
+            ]}
+            width={130}
+          />
         </div>
 
         <div className={styles.list}>
@@ -261,16 +259,15 @@ export default function Authors() {
               </div>
               <div className={styles.mfield}>
                 <div className={styles.mfieldLabel}>소속 팀</div>
-                <select
-                  className={styles.mfieldInput}
+                <Select
                   value={form.team}
-                  onChange={(e) => setField('team', e.target.value)}
-                >
-                  <option value="">선택</option>
-                  {TEAMS.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
+                  onChange={(v) => setField('team', v)}
+                  options={[
+                    { value: '', label: '선택' },
+                    ...TEAMS.map((t) => ({ value: t, label: t })),
+                  ]}
+                  placeholder="선택"
+                />
               </div>
               <div className={styles.mfield}>
                 <div className={styles.mfieldLabel}>이메일 <span className={styles.req}>*</span></div>

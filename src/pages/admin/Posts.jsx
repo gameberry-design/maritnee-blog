@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { POSTS, CATEGORY_COLOR, GROUP_OF_CAT } from '../../lib/mockData.js'
 import { IconPlus, IconImage } from '../../components/icons/Icons.jsx'
+import Select from '../../components/admin/Select.jsx'
 import styles from './Posts.module.css'
 
 const GROUP_CATS = {
@@ -96,6 +97,7 @@ export default function Posts() {
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [posts, setPosts] = useState(POSTS)
   const [page, setPage] = useState(1)
+  const [sort, setSort] = useState('recent')
 
   useEffect(() => {
     setGroup(searchParams.get('group') || 'insight')
@@ -248,21 +250,27 @@ export default function Posts() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <select
-            className={styles.filterSelect}
+          <Select
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="all">전체 상태</option>
-            <option value="published">발행</option>
-            <option value="private">비공개</option>
-            <option value="draft">임시저장</option>
-          </select>
-          <select className={styles.filterSelect} defaultValue="recent">
-            <option value="recent">최신순</option>
-            <option value="views">조회수순</option>
-            <option value="title">제목순</option>
-          </select>
+            onChange={setStatus}
+            options={[
+              { value: 'all', label: '전체 상태' },
+              { value: 'published', label: '발행' },
+              { value: 'private', label: '비공개' },
+              { value: 'draft', label: '임시저장' },
+            ]}
+            width={130}
+          />
+          <Select
+            value={sort}
+            onChange={setSort}
+            options={[
+              { value: 'recent', label: '최신순' },
+              { value: 'views', label: '조회수순' },
+              { value: 'title', label: '제목순' },
+            ]}
+            width={120}
+          />
           <div style={{ flex: 1 }} />
           {selectedIds.size > 0 && (
             <div className={styles.bulkBar}>
